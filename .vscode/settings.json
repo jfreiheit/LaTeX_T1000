@@ -1,0 +1,22 @@
+{
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.bbl": true,
+        "**/*.bcf": true,
+        "**/*.blg": true,
+        "**/*.fdb*": true,
+        "**/*.fls": true,
+        "**/*.glo": true,
+        "**/*.glsdefs": true,
+        "**/*.gz": true,
+        "**/*.ist": true,
+        "**/*.lof": true,
+        "**/*.log": true,
+        "**/*.lol": true,
+        "**/*.lot": true,
+        "**/*.toc": true,
+        "**/*.xml": true,
+        "lang": true,
+        "LICENSE": true
+    }
+}
