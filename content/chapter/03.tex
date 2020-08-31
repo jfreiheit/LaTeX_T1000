@@ -3,32 +3,77 @@
 
 Matplotlib ist eine Bibliothek für Python mit deren Hilfe  Kennlinien und Diagramme mit nur wenigen Zeilen Code erzeugt werden können.  Nach dem Importieren der Bibliothek, muss der Funktion plot nur y-Werte übergeben werden. Die x-Werte werden inkrementell in einer schritten hinzugefügt. Unterscheiden sich die eigenen x-Werte jedoch von den automatisch erzeugten, können auch diese der Funktion übergeben werden. Das in Abb. \ref{img:MPL1} dargestellte Diagramm würde somit identisch aussehen wenn ich der Funktion nur die y-Werte übergeben würde. 
 
+\begin{lstlisting}[caption= eine Gerade in Python, label=ObjektinitialisierungPython,language=Python]
+import matplotlib.pyplot as plt
+
+plt.title('Mein erstes Diagram')
+plt.plot([1,2,3],[1,2,3]);
+#Gleiche Ausgabe
+#plt.plot([1,2,3]);
+\end{lstlisting}
+
+
 \begin{figure}[!htb]
-\includegraphics{MeinErstesDiagramm.png}
+\centering
+\includegraphics[scale=0.8]{MeinErstesDiagramm.png}
 \caption{Mein erstes Diagramm in Jupyter Notebook mit matplotlib }
 \label{img:MPL1}
 \end{figure}
 
-Die Achsen lassen sich beschriften \texttt{xlabel,ylabel} man kann die Textgröße fontsize  bestimmen, sowie die Position \texttt{verticalalignment, horizontalalignment} und den Abstand zur Achsenlinie \texttt{labelpad}. Die Achseneinteilung lässt sich umbenennen dezimieren und rotieren. Matplotlib ist kompatibel mit Latex. 
+Die Achsen lassen sich beschriften \texttt{xlabel,ylabel} man kann die Textgröße \texttt{fontsize}  bestimmen, sowie die Position \texttt{verticalalignment, horizontalalignment} und den Abstand zur Achsenlinie \texttt{labelpad}. Die Achseneinteilung lässt sich umbenennen, dezimieren und rotieren. Matplotlib ist kompatibel mit Latex. 
+
+\begin{lstlisting}[caption= Diagramm mit Beschriftung, label=lst: DiagrammMitBeschriftung,language=Python]
+#Titel
+plt.title('Mein zweites Diagram')
+
+#Achsenbeschriftung
+plt.xlabel('Das ist die X-Achse')
+plt.ylabel('Das ist die Y-Achse')
+
+#Anpassen des Wertebereiches mit LaTeX
+plt.xticks([1,2,3],[r'$\frac{\pi}{2}$',r'$\pi$',r'$2\pi$'])
+
+plt.plot([1,2,3],[1,2,3]);
+\end{lstlisting}
 
 \begin{figure}[!htb]
-\includegraphics{Diagramm_mit_Beschriftung.png}
+\centering
+\includegraphics[scale=0.8]{Diagramm_mit_Beschriftung.png}
 \caption{Diagramm mit Beschriftung}
 \label{img:DiagrammMitBeschriftung}
 \end{figure}
 
-Um eine Funktion mit matplotlib darzustellen muss  eine Wertetabelle erstellt werden. Mithilfe einer Funktion wird der Definitionsbereich festgelegt.
+Um eine Funktion mit Matplotlib darzustellen muss  eine Wertetabelle erstellt werden. Mithilfe einer Funktion wird der Definitionsbereich festgelegt.
+
+\begin{lstlisting}[caption= die Funktion Definitionsbereich, label=lst:Definitionsbereich,language=Python]
+def Definitionsbereich(start,ende,schritt):
+    x=[start]
+    while start < ende:
+        start += schritt
+        x.append(round(start, 10))
+    return x
+\end{lstlisting}
+
+Um die Wertetabelle zu vervollständigen, wird durch eine Funktion der Wertebereich bestimmt. Betrachten wir als Beispiel eine Parabel. Der Funktion \texttt{Parabel(x)} werden die x-Werte übergeben im Bereich von -3 bis 3, die x-Werte werden mithilfe der Funktion \texttt{Definitionsbereich(-3,3,0.1)} erstellt. Als Rückgabewert liefert die Funktion \texttt{Parabel(x)} die y-Werte. Übergeben wir der Funktion \texttt{plt.plot(x,y)} die x- und y-Werte liefert sie als Ausgabe den Funktionsgraph zurück.
+
+\begin{lstlisting}[caption= Parabel, label=lst:Parabel,language=Python]
+def Parabel(x):
+    y = []
+    for k in range(len(x)):
+        temp = x[k] ** 2
+        y.append(temp)
+    return y
+
+x = Definitionsbereich(-3,3,0.1)
+plt.plot(x,Parabel(x))
+plt.title("Parabel")
+
+plt.show();
+\end{lstlisting}
 
 \begin{figure}[!htb]
-\includegraphics{Definitionsbereich.png}
-\caption{Funktion: Definitionsbereich}
-\label{img:Definitionsbereich}
-\end{figure}
-
-Um die Wertetabelle zu vervollständigen, wird durch eine Funktion der Wertebereich bestimmt. Betrachten wir als Beispiel eine Parabel. Der Funktion \texttt{Parabel(x)} werden die x-Werte übergeben im Bereich von -3 bis 3, die x-Werte werden mithilfe der Funktion \texttt{Definitionsbereich(-3,3,0.1)} erstellt. Als Rückgabewert liefert die Funktion \texttt{Parabel(x)} die y-Werte. Übergeben wir der Funktion \texttt{plt.plot(x,y)} die x- und y-Werte. Sie als Ausgabe den Funktionsgraph zurück.
-
-\begin{figure}[!htb]
-\includegraphics[scale=1]{Parabel.png}
+\centering
+\includegraphics[scale=0.8]{Parabel.png}
 \caption{Parabel}
 \label{img:Parabel}
 \end{figure}
@@ -37,17 +82,27 @@ Um die Wertetabelle zu vervollständigen, wird durch eine Funktion der Wertebere
 
 Eine matplotlib Grafik beinhaltet eine in sich geschachtelte Objekthierarchie. Das Figure Objekt ist das äußerste Fenster einer matplotlib Grafik. In einem Figure Objekt können mehrere Axes Objekte erzeugt werden, die ein Diagramm darstellen.
 
+
+
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1]{FigureAufbau.png}
+\includegraphics[scale=0.8]{FigureAufbau.png}
 \caption{Aufbau von einem matplotlib Objekt \cite{matplotlib}}
 \label{img:FigureObjekt}
 \end{figure}
 
 Anstelle von \texttt{plt.plot()} erstellen wir eine Objekt Figure dem wir ein Axes Objekt als unter Plot hinzufügen.
 
+\begin{lstlisting}[caption= Figure Objekt, label=lst:FigureObjekt,language=Python]
+fig = plt.figure()
+
+ax = fig.add_subplot(1,1,1)
+ax.set_title("ein Fenster");
+\end{lstlisting}
+
 \begin{figure}[!htb]
-\includegraphics[scale=1]{EinFigureEinAxes.png}
+\centering
+\includegraphics[scale=0.8]{EinFigureEinAxes.png}
 \caption{Ein Figure Objekt mit einem Axes Objekt}
 \label{img:EinFigureEinAxes}
 \end{figure}
@@ -55,25 +110,68 @@ Anstelle von \texttt{plt.plot()} erstellen wir eine Objekt Figure dem wir ein Ax
 Eine Figure Objekt kann mehrere Axes Objekte enthalten. Ein Figure Objekt kann in Spalten und Zeilen unterteilt werden in jedem Feld kann sich ein Axes Objekt befinden. Die einzelnen Axes Objekte werden der Reihe nach von links nach rechts nummeriert und so angesprochen add\_subplot(Reihenanzahl, Spaltenanzahl, Nummer) .  In Abbildung \ref{img:EinFigureEinAxes} wurde das Figure Objekt in eine Spalte und eine Reihe unterteilt somit ergibt sich nur ein Feld mit einem Axes Objekt. Wenn wir zwei Axes Objekte neben einander anlegen wollen müssen wir die Methode add\_subplot() zweimal aufrufen mit einer Zeile und zwei Spalten. 
 Exemplarisch wurde hier dargestellt das die Form und Farbe der Linie beeinflusst werden kann. 
 
+\begin{lstlisting}[caption=  Zwei Axes Objekte in einem Figure Objekt, label=lst:ZweiAxesEinFigure,language=Python]
+fig1 = plt.figure()
+
+ax1 = fig1.add_subplot(1,2,1)
+ax1.set_title("Das erste Fenster")
+ax1.plot(Definitionsbereich(-3,0,0.1),Parabel(Definitionsbereich(-3,0,0.1)),'g:')
+    
+ax2 = fig1.add_subplot(1,2,2)
+ax2.set_title("Das zweite Fenster")
+ax2.plot(Definitionsbereich(0,3,0.1),Parabel(Definitionsbereich(0,3,0.1)),'r--')
+    
+plt.show();
+\end{lstlisting}
+
 \begin{figure}[!htb]
-\includegraphics[scale=1]{ZweiAxesEinFigure.png}
+\centering
+\includegraphics[scale=0.8]{ZweiAxesEinFigure.png}
 \caption{Zwei Axes Objekte in einem Figure Objekt}
 \label{img:ZweiAxesEinFigure}
 \end{figure}
 
 Möchte man zwei Linien darstellen muss man dafür nicht zwangsläufig zwei Axes Objekte erzeugen. Es können beliebig viele Linien in einem Axes Objekt erzeugt werden, zur übersichtlichen Darstellung empfiehlt sich eine Legende die mit \texttt{labe}l und \texttt{.legend()} dargestellt werden kann
 
+\begin{lstlisting}[caption= Zwei Graphen in einem Axes Objekt, label=lst:ZweiGraphenEinAxes,language=Python] 
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.set_title("zwei Graphen in einem Fenster")
+ax.plot(Definitionsbereich(-3,0,0.1),Parabel(Definitionsbereich(-3,0,0.1)),'g:',label = 'links')
+ax.plot(Definitionsbereich(0,3,0.1),Parabel(Definitionsbereich(0,3,0.1)),'r--',label = 'rechts')
+
+ax.legend()
+plt.show();
+\end{lstlisting}
+
 \begin{figure}[!htb]
-\includegraphics[scale=1]{ZweiGraphenEinAxes.png}
+\centering
+\includegraphics[scale=0.8]{ZweiGraphenEinAxes.png}
 \caption{Zwei Graphen in einem Axes Objekt}
 \label{img:ZweiGraphenEinAxes}
 \end{figure}
 
+
 Damit jedes Axes Objekt nicht einzeln erstellt werden muss, kann man alternativ die Methode \texttt{subplots()} verwenden.
 Übergibt man der Methode Zeilen und Spalten Anzahl liefert sie als Rückgabewert ein Figure Objekt und die Axes Objekte, die in einem Array gespeichert werden können
 
+\begin{lstlisting}[caption= Axes Objekt Array, label=lst:AxesArray,language=Python] 
+import numpy as np
+
+fig, arr_ax = plt.subplots(2,2)
+        
+arr_ax[0,0].set_title("erstes Fenster")
+arr_ax[0,1].set_title("zweites Fenster")
+arr_ax[1,0].set_title("drittes Fenster")
+arr_ax[1,1].set_title("viertes Fenster")
+        
+#Vergroessert die Abstaende der einzellnen Subplots    
+plt.tight_layout()
+\end{lstlisting}
+
 \begin{figure}[!htb]
-\includegraphics[scale=1]{AxesArray.png}
+\centering
+\includegraphics[scale=0.8]{AxesArray.png}
 \caption{Axes Objekt Array}
 \label{img:AxesArray}
 \end{figure}
@@ -83,10 +181,20 @@ Damit jedes Axes Objekt nicht einzeln erstellt werden muss, kann man alternativ 
 
 In dieser Ausarbeitung werden I-U-Kennlinien vermehrt vorkommen. Für eine I-U-Kennlinie wird die Y-Achse mit  $I_{D}\, in\, A $  beschriftet. Die Beschriftung soll Horizontal ausgerichtet und am oberen Ende der Achse  positioniert werden . Die X-Achse wird mit $U_{D}\,  in\, V$ beschriftet und am rechten Ende der Achse positioniert. Des weiteren muss die obere und rechte  Begrenzungslinie entfernt werden. Zum Schluss benötigt der Graph noch eine Überschrift. Da diese Kriterien für alle I-U-Kennlinien gelten wird eine Funktion geschrieben. 
 
-\begin{figure}[!htb]
-\includegraphics[scale=1]{IUKennlinie.png}
-\caption{Funktion zum Erzeugen einer I-U Kennlinie}
-\label{img:IUKennlinie}
-\end{figure}
-
-
+\begin{lstlisting}[caption= Funktion zum Erzeugen einer I-U Kennlinie, label=lst:IUKennlinie,language=Python] 
+def IUKennlinie(definitionsbereich,funktion,titel,beginX = 0,Lokation = 'Center'):
+    fig = plt.figure()
+    ax = fig.add_subplot(1,1,1)
+    ax.plot(definitionsbereich,funktion)
+    
+    
+    ax.set_title(titel,loc = Lokation)
+  
+    
+    ax.set_ylabel(r'${I}_D$'" in A",labelpad=25,position = (1,1),verticalalignment = 'top',rotation = 'horizontal')
+    ax.set_xlabel(r'${U}_D$' " in V",position = (1,1),horizontalalignment='right')
+    
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.spines['left'].set_position(('data',beginX))
+\end{lstlisting}

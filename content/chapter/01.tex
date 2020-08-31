@@ -66,7 +66,7 @@ public class Adresse
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Die Klasse Adresse in Python, label=AdressePython,language=Python]
+\begin{lstlisting}[caption=Die Klasse Adresse in Python, label=lst:AdressePython,language=Python]
 class Adresse:
     #Initialisierungsmethode (Konstruktor)
     def __init__(self,strasse: str, hausnummer: int, postleitzahl: int, ort: str) -> None:
@@ -98,13 +98,32 @@ meineAdresse = Adresse("Schlossstr","Berlin",01,12345)
 \end{lstlisting}
 
 \subsection{Generalisierung} \label{subsec:Generalisierung}
+
 Aufbauend auf dem Kapitel Klasse \ref{subsec:Klasse} betrachten wir nun den ersten Grundpfeiler der objektorientierten Programmierung, die Generalisierung. Von Generalisierung ist dann die Rede, wenn mehrere Klassen die selben Eigenschaften teilen. Würde man die Klasse \texttt{Bus} und die Klasse \texttt{Auto} implementiert, so würden beide Klassen die Eigenschaft fahren besitzten. Gemeinsamme Eigenschaften werden in einer \textbf{Superklasse} zusammengeführt. Die Superklasse von \texttt{Bus} und \texttt{Auto} könnte die Klasse \texttt{Fahrzeug} sein. Die Klasse \texttt{Auto} kann durch die \textbf{Subklassen} \texttt{Cabrio}, \texttt{Limousine} und \texttt{Coupe} spezialisiert werden. Im Kapitel Vererbung \ref{subsec:Vererbung} wird erläutert, warum der daraus entstehende Hierarchibaum den Programmieraufwand minimiert. 
 
 
 \subsection{Vererbung} \label{subsec:Vererbung}
 
 Der im Kapitel \ref{subsec:Generalisierung} beschriebene Hierarchiebaum hat folgende Form (Abbildung. \ref{img:Hierarchiebaum}). Die Klassen \texttt{Auto}, \texttt{Bus}, \texttt{Limousine}, \texttt{Coupe} und \texttt{Cabrio} besitzten keine Instanzvariablen und keine Methoden. Nur die Klasse \texttt{Fahrzeug} implementiert die Methode \texttt{fahren()}.
-Durch Vererbung sind alle Subklassen von Fahrzeug in der lage, die Methode \texttt{fahren()} aufzurufen, ohne sie einzeln zu implementieren. Der Schreibaufwand kann daher durch Vererbung minimiert werden. Vererbung hilft den Programmierer auch dabei Fehler zu vermeiden, da die Methode nur einmal implementiert und somit auch nur einmal getestet werden muss. Durch Generalisierung und Vererbung können sich Programmierer eigene Bibliotheken aus vorgefertigten Objekten  erstellen, die nur noch für den konkreten Anwendungsfall spezialisiert werden müssen. In 
+Durch Vererbung sind alle Subklassen von Fahrzeug in der lage, die Methode \texttt{fahren()} aufzurufen, ohne sie einzeln zu implementieren. Der Schreibaufwand kann daher durch Vererbung minimiert werden. Vererbung hilft den Programmierer auch dabei Fehler zu vermeiden, da die Methode nur einmal implementiert und somit auch nur einmal getestet werden muss. Durch Generalisierung und Vererbung können sich Programmierer eigene Bibliotheken aus vorgefertigten Objekten  erstellen, die nur noch für den konkreten Anwendungsfall spezialisiert werden muss. Möchte man zum Beispiel eine neue Limousine entwickeln muss sie nur von der Klasse Limousine erben, und sie wäre bereits in der Lage zu fahren. Aus dem UML Klassendiagramm kann man ablesen, das die Klasse Fahrzeug von der Klasse \texttt{object} erbt, ohne das dies angegeben wurde. Der Grund hierfür liegt darin, das sowohl in Python als auch in Java jede Klasse von object erbt. Die Methoden, die in der Klasse object implementiert sind, können von jeder Klasse verwendet werden. Zu den Object Methoden gehören unteranderem die \texttt{equals} Methode in Java und die \texttt{\_\_eq\_\_} Methode in Python, mit denen man zwei Objekte einer Klasse auf gleichheit überprüfen kann. 
+
+In Java wird eine Vererbung implementiert, in dem das Schlüsselwort \texttt{extends} in den Klassenkopf geschrieben wird.
+
+\begin{lstlisting}[caption=Vererbung in Java, label=Vererbung Java]
+//Die Klasse Auto erbt von der Klasse Fahrzeug
+public class Auto extends Fahrzeug   
+{ 
+}
+\end{lstlisting}
+
+Bei Python reicht es den Namen der Superklasse in Klammern hinter den Namen der Subklasse zu schreiben \footnote{Python lässt keine leeren Klassen zu, daher muss der befehl \texttt{pass} verwendet werden}. 
+
+\begin{lstlisting}[caption= Vererbung in Python, label=lst:Vererbungpython,language=Python]
+class Auto(Fahrzeug):
+    pass
+\end{lstlisting}
+
+
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=0.5]{FahrzeugHiera.png}%
@@ -113,6 +132,7 @@ Durch Vererbung sind alle Subklassen von Fahrzeug in der lage, die Methode \text
 \end{figure}
 
 \subsection{Kapselung} \label{subsec:Kapselung}
+
 
 \subsection{Polymorphismus} \label{subsec:Polymorphismus}
 
