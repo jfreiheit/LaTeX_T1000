@@ -105,7 +105,7 @@ Aufbauend auf dem Kapitel Klasse \ref{subsec:Klasse} betrachten wir nun den erst
 \subsection{Vererbung} \label{subsec:Vererbung}
 
 Der im Kapitel \ref{subsec:Generalisierung} beschriebene Hierarchiebaum hat folgende Form (Abbildung. \ref{img:Hierarchiebaum}). Die Klassen \texttt{Auto}, \texttt{Bus}, \texttt{Limousine}, \texttt{Coupe} und \texttt{Cabrio} besitzten keine Instanzvariablen und keine Methoden. Nur die Klasse \texttt{Fahrzeug} implementiert die Methode \texttt{fahren()}.
-Durch Vererbung sind alle Subklassen von Fahrzeug in der lage, die Methode \texttt{fahren()} aufzurufen, ohne sie einzeln zu implementieren. Der Schreibaufwand kann daher durch Vererbung minimiert werden. Vererbung hilft den Programmierer auch dabei Fehler zu vermeiden, da die Methode nur einmal implementiert und somit auch nur einmal getestet werden muss. Durch Generalisierung und Vererbung können sich Programmierer eigene Bibliotheken aus vorgefertigten Objekten  erstellen, die nur noch für den konkreten Anwendungsfall spezialisiert werden muss. Möchte man zum Beispiel eine neue Limousine entwickeln muss sie nur von der Klasse Limousine erben, und sie wäre bereits in der Lage zu fahren. Aus dem UML Klassendiagramm kann man ablesen, das die Klasse Fahrzeug von der Klasse \texttt{object} erbt, ohne das dies angegeben wurde. Der Grund hierfür liegt darin, das sowohl in Python als auch in Java jede Klasse von object erbt. Die Methoden, die in der Klasse object implementiert sind, können von jeder Klasse verwendet werden. Zu den Object Methoden gehören unteranderem die \texttt{equals} Methode in Java und die \texttt{\_\_eq\_\_} Methode in Python, mit denen man zwei Objekte einer Klasse auf gleichheit überprüfen kann. 
+Durch Vererbung sind alle Subklassen von Fahrzeug in der lage, die Methode \texttt{fahren()} aufzurufen, ohne sie einzeln zu implementieren. Der Schreibaufwand kann daher durch Vererbung minimiert werden. Vererbung hilft den Programmierer auch dabei Fehler zu vermeiden, da die Methode nur einmal implementiert und somit auch nur einmal getestet werden muss. Durch Generalisierung und Vererbung können sich Programmierer eigene Bibliotheken aus vorgefertigten Objekten  erstellen, die nur noch für die konkreten Anwendungsfälle spezialisiert werden müssen. Möchte man zum Beispiel eine neue Limousine entwickeln muss sie nur von der Klasse Limousine erben, und sie wäre bereits in der Lage zu fahren. Aus dem UML Klassendiagramm kann man ablesen, das die Klasse Fahrzeug von der Klasse \texttt{object} erbt, ohne das dies angegeben wurde. Der Grund hierfür liegt darin, das sowohl in Python als auch in Java jede Klasse von object erbt. Die Methoden, die in der Klasse object implementiert sind, können von jeder Klasse verwendet werden. Zu den Object Methoden gehören unteranderem die \texttt{equals()} Methode in Java und die \texttt{\_\_eq\_\_()} Methode in Python, mit denen man zwei Objekte auf gleichheit überprüfen kann. 
 
 In Java wird eine Vererbung implementiert, in dem das Schlüsselwort \texttt{extends} in den Klassenkopf geschrieben wird.
 
@@ -116,9 +116,10 @@ public class Auto extends Fahrzeug
 }
 \end{lstlisting}
 
-Bei Python reicht es den Namen der Superklasse in Klammern hinter den Namen der Subklasse zu schreiben \footnote{Python lässt keine leeren Klassen zu, daher muss der befehl \texttt{pass} verwendet werden}. 
+In der Sprache Python reicht es, den Namen der Superklasse in Klammern hinter den Namen der Subklasse zu schreiben.
 
-\begin{lstlisting}[caption= Vererbung in Python, label=lst:Vererbungpython,language=Python]
+\begin{lstlisting}[caption= Vererbung in Python \footnote{Python lässt keine leeren Klassen zu, daher muss der befehl \texttt{pass} verwendet werden}, label=lst:Vererbungpython,language=Python]
+#Die Klasse Auto erbt von der Klasse Fahrzeug    
 class Auto(Fahrzeug):
     pass
 \end{lstlisting}
@@ -131,9 +132,40 @@ class Auto(Fahrzeug):
 \label{img:Hierarchiebaum}
 \end{figure}
 
-\subsection{Kapselung} \label{subsec:Kapselung}
-
-
+%\subsection{Kapselung} \label{subsec:Kapselung}
+%
+%
 \subsection{Polymorphismus} \label{subsec:Polymorphismus}
+Die Klasse Object bietet neben der Vergleichsmethode auch eine Methode an um Objektinformationen in einem String zu bündeln. 
+Sie wird in Java \texttt{toString()} und in Python \texttt{\_\_str\_\_()} bezeichnet. Beim Aufrufen der \texttt{\_\_str\_\_()} Methode auf ein Objekt der Klasse Auto würde der String wie folgt aussehen. 
 
+\begin{lstlisting}[caption= \_\_str\_\_ Ausgabe Python, label=lst:strPython,language=Python]
+ "__main__.Auto object at 0x7f84fb087700"   
+\end{lstlisting}
+
+Der Programmierer erhält die Information über die Klasse des Objektes und unter welcher Adresse das Objekt gespeichert ist. In Java sieht die Ausgabe ähnlich aus, mit dem Unterschied, das anstelle der Adresse, der Hashcode des Objektes ausgegeben wird. In den Meisten fällen, möchte der Programmierer jedoch Informationen über die Instanzvariablen des Objektes erhalten. Um dies zu erreichen muss die Methode überschrieben werden. Das Überschreiben der Methode wird häufig unter dem Begriff \textbf{Polymorphismus} zusammengefasst. Ein Merkmal beim überschreiben von Methoden liegt darin, das die Argumentenliste und der Rückgabetyp gleich bleibt. Um die \texttt{\_\_str\_\_()} Methode anzuwenden, fügen wir der Superklasse Fahrzeug noch einige Instanzvariablen hinzu. Die Methode \texttt{str} wird nun so überschrieben, das alle Attribute des Objektes in einem String zusammengeführt werden. In Python wird die \texttt{str} Methode automatisch aufgerufen, wenn das Object der Methode \texttt{print} übergeben wird. 
+
+\begin{lstlisting}[caption= \_\_str\_\_ Ueberschrieben, label=lst:UeberschreibenStr,language=Python]
+class Fahrzeug(object):
+    def __init__(self,marke,farbe,leistung):
+        self.marke = marke
+        self.farbe = farbe
+        self.leistung = leistung
+
+    def fahren(self):
+        print("brum  brum")
+
+
+
+class Auto(Fahrzeug):
+    def __str__(self):
+        beschreibung = self.marke + "," + self.farbe + "," + str(self.leistung) + "PS"
+        return beschreibung
+
+meinAuto = Auto("Daimler","Gelb",150)
+print(meinAuto)
+
+#Ausgbae :
+#Daimler,Gelb,150PS
+\end{lstlisting}
 
